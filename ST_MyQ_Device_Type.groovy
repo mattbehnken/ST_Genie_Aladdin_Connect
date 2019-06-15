@@ -51,9 +51,9 @@ If everything worked correctly, the door should retrieve the current status.  If
    
 preferences 
 {
-    input("username", "text", title: "Username", description: "MyQ username (email address)")
-    input("password", "password", title: "Password", description: "MyQ password")
-    input("door_name", "text", title: "Door Name", description: "MyQ Garage Door name or Device ID")
+    input("username", "text", title: "Username", description: "Genie App username (email address)")
+    input("password", "password", title: "Password", description: "Genie App password")
+    input("door_name", "text", title: "Door Name", description: "Garage Door name or Device ID")
     input("is_craftsman", "enum", title: "Is your opener a Craftsman Assurelink?", metadata:[values:["Yes","No"]])
 }
 
@@ -161,7 +161,7 @@ def installed() {
 
 	log.debug "Installing Garage Door"
 
-	state.Login = [ BrandID: "Chamberlain", Expiration: 0 ]
+	state.Login = [ BrandID: "Genie", Expiration: 0 ]
     state.DeviceID = 0
 }
 
