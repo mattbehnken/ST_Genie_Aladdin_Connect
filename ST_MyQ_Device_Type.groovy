@@ -1,10 +1,10 @@
 /**
- *  MyQ Garage Door
+ *  Genie Aladdin Connect integration with Smartthings Platform
  *
- *  Copyright 2014 Adam Heinmiller
+ *  
  *
  *	Recognition:
- *
+ *	Adam Heinmiller
  *	@SteveGanz - Exceptional testing and feedback
  *	@StorageAnarchy - Integration with dashboard "Doors and Locks" section
  *	@JimRobertsemail - Craftsman Assurelink compatability settings
@@ -41,7 +41,7 @@ Add a new Device:
 	6.  Click Create
 	
 Setup your Garage Door:
-	1.  Get your Username, Password and Door Name used in the MyQ mobile app
+	1.  Get your Username, Password and Door Name used in the Genie Aladdin Connect Mobile App.
 	2.  Edit your new device's Preferences and enter the information above
 	
 If everything worked correctly, the door should retrieve the current status.  If you see "Unknown" there is probably an issue with your username and password; use the logs to capture error information.  If you see "Door not Found" your garage door name is not correct.
@@ -59,13 +59,13 @@ preferences
 
 metadata 
 {
-	definition (name: "MyQ Garage Door", author: "Adam Heinmiller") 
+	definition (name: "Genie Aladdin Connect", author: "Maisaiah") 
     {
-		capability "Polling"
+	capability "Polling"
         capability "Switch"
         capability "Refresh"
         capability "Contact Sensor"
-		capability "Momentary"
+	capability "Momentary"
         
         attribute "doorStatus", "string"
         attribute "vacationStatus", "string"
@@ -91,15 +91,13 @@ metadata
 		standardTile("sDoorToggle", "device.doorStatus", width: 1, height: 1, canChangeIcon: false) 
         {
 			state "default", label:''
-
 			state "unknown", label: 'Unknown', icon: "st.unknown.unknown.unknown", action: "refresh.refresh", backgroundColor: "#afafaf"
 			state "door_not_found", label:'Not Found', backgroundColor: "#CC1821"            
-
 			state "stopped", label: 'Stopped', icon: "st.contact.contact.open", action: "close", backgroundColor: "#ffdd00"
 			state "closed", label: 'Closed', icon:"st.doors.garage.garage-closed", action: "open", backgroundColor: "#ffffff"
-            state "closing", label: 'Closing', icon:"st.doors.garage.garage-closing", backgroundColor: "#ffdd00"
+            		state "closing", label: 'Closing', icon:"st.doors.garage.garage-closing", backgroundColor: "#ffdd00"
 			state "open", label: 'Open', icon:"st.doors.garage.garage-open", action: "close", backgroundColor: "#ffdd00"
-            state "opening", label: 'Opening', icon:"st.doors.garage.garage-opening", backgroundColor: "#ffdd00"
+           		state "opening", label: 'Opening', icon:"st.doors.garage.garage-opening", backgroundColor: "#ffdd00"
 			state "moving", label: 'Moving', icon: "st.motion.motion.active", action: "refresh.refresh", backgroundColor: "#ffdd00"
 		}
 
@@ -107,7 +105,6 @@ metadata
         {
 			state "default", label:'', action:"refresh.refresh", icon:"st.secondary.refresh"
 		}
-        
         standardTile("sContact", "device.contact")
         {
 			state "open", label: '${name}', icon: "st.contact.contact.open", backgroundColor: "#ffa81e"
@@ -162,7 +159,7 @@ metadata
 
 def installed() {
 
-	log.debug "Installing MyQ Garage Door"
+	log.debug "Installing Garage Door"
 
 	state.Login = [ BrandID: "Chamberlain", Expiration: 0 ]
     state.DeviceID = 0
@@ -171,7 +168,7 @@ def installed() {
 
 def updated() {
 
-	log.debug "Updating MyQ Garage Door"
+	log.debug "Updating Garage Door"
     
 	state.Login.Expiration = 0
     state.DeviceID = 0
@@ -183,7 +180,7 @@ def updated() {
 // handle commands
 def poll() 
 {
-	log.debug "MyQ Garage door Polling"
+	log.debug "Garage door Polling"
     
     refresh()
 }
@@ -382,7 +379,7 @@ def login()
 
 def getDevice()
 {
-	log.debug "Getting MyQ Devices"
+	log.debug "Getting Devices"
     
     
     // If we set a door name that looks like a device id, use it as a device id
